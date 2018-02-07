@@ -84,6 +84,7 @@ func (pool *myPool) Return(entity Entity) error {
 		errMsg := fmt.Sprintf("the entity (id=%d) id illegal\n", entityId)
 		return errors.New(errMsg)
 	}
+	return nil
 }
 
 func (pool *myPool) compareAndSetForIdContainer(entityId uint32, oldValue bool, newValue bool) int8 {
