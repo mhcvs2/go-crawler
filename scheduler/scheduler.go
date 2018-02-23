@@ -37,6 +37,7 @@ type Scheduler interface {
 	Stop() bool
 	Running() bool
 	ErrorChan() <-chan error
+	// 判断所有处理模块是否都处于空闲状态。
 	Idle() bool
 	Summary(prefix string) SchedSummary
 }

@@ -15,7 +15,17 @@ import (
 	pipeline "go-crawler/itempipeline"
 	sched "go-crawler/scheduler"
 	"go-crawler/tool"
+	"github.com/mhcvs2/godatastructure/csvFile"
+	"github.com/mhcvs2/godatastructure/util"
+	"reflect"
 )
+
+var c *csvFile.CSV
+
+func init() {
+	c = csvFile.NewCSVFile("/root/GoglandProjects/beegoTest/src/go-crawler/item.csv")
+	c.Init("key","value")
+}
 
 // 条目处理器。
 func processItem(item base.Item) (result base.Item, err error) {
@@ -31,6 +41,12 @@ func processItem(item base.Item) (result base.Item, err error) {
 		result["number"] = len(result)
 	}
 	time.Sleep(10 * time.Millisecond)
+	data := [][]string{}
+	for k, v := range result {
+		data = append(data, []string{k, util.ToString(reflect.ValueOf(v))})
+	}
+	data = append(data, []string{"", ""})
+	c.WriteAll(data)
 	return result, nil
 }
 
@@ -127,7 +143,7 @@ func record(level byte, content string) {
 	case 1:
 		log.Warnln(content)
 	case 2:
-		log.Infoln(content)
+		log.Errorln(content)
 	}
 }
 
@@ -172,4 +188,5 @@ func main() {
 
 	// 等待监控结束
 	<-checkCountChan
+	c.Done()
 }
