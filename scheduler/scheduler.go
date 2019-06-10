@@ -68,7 +68,7 @@ func (sched *myScheduler) Start(
 	httClientGenerator GenHttpClient,
 	respParsers []anlz.ParseResponse,
 	itemProcessors []ipl.ProcessItem,
-	firstHrrpReq *http.Request,
+	firstHttpReq *http.Request,
 ) (err error) {
 	defer func() {
 		if p := recover(); p != nil {
@@ -139,16 +139,16 @@ func (sched *myScheduler) Start(
 	sched.openItemPipeline()
 	sched.schedule(10 * time.Millisecond)
 
-	if firstHrrpReq == nil {
+	if firstHttpReq == nil {
 		return errors.New("the first http request is invalid")
 	}
-	pd, err := getPrimaryDomain(firstHrrpReq.Host)
+	pd, err := getPrimaryDomain(firstHttpReq.Host)
 	if err != nil {
 		return err
 	}
 	sched.primaryDomain = pd
 
-	firstReq := base.NewRequest(firstHrrpReq, 0)
+	firstReq := base.NewRequest(firstHttpReq, 0)
 	sched.reqCache.put(firstReq)
 	return nil
 }

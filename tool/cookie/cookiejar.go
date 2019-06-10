@@ -1,7 +1,7 @@
 package cookie
 
 import (
-	"code.google.com/p/go.net/publicsuffix"
+	"golang.org/x/net/publicsuffix"
 	"net/http"
 	"net/http/cookiejar"
 )

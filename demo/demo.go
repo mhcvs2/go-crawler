@@ -23,7 +23,7 @@ import (
 var c *csvFile.CSV
 
 func init() {
-	c = csvFile.NewCSVFile("/root/GoglandProjects/beegoTest/src/go-crawler/item.csv")
+	c = csvFile.NewCSVFile("/code/gopath/src/go-crawler/item.csv")
 	c.Init("key","value")
 }
 
@@ -105,6 +105,7 @@ func parseForATag(httpResp *http.Response, respDepth uint32) ([]base.Data, []err
 			imap["parent_url"] = reqUrl
 			imap["a.text"] = text
 			imap["a.index"] = index
+			imap["a.url"] = href
 			item := base.Item(imap)
 			dataList = append(dataList, &item)
 		}

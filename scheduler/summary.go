@@ -25,7 +25,6 @@ func NewSchedSummary(sched *myScheduler, prefix string) SchedSummary {
 		buffer.WriteByte('\n')
 		for k, _ := range sched.urlMap {
 			buffer.WriteString(prefix)
-			buffer.WriteString(prefix)
 			buffer.WriteString(k)
 			buffer.WriteByte('\n')
 		}
